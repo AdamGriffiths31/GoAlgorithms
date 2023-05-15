@@ -1,3 +1,3 @@
-module algorithms
+module GoAlgorithms
 
 go 1.19

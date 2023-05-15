@@ -25,3 +25,11 @@ go build
 ```
 
 After running the program, you will find a new folder named with today's date (e.g., "2023-05-13") in the project's root directory. Inside this folder, you'll find the generated algorithm templates.
+
+---
+
+```bash
+./GoAlgorithms --force
+```
+
+Can be used to remove the existing folder for today

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -8,9 +10,25 @@ import (
 )
 
 func main() {
+	force := flag.Bool("force", false, "delete existing folder")
+	flag.Parse()
 	folderName := time.Now().Format("2006-01-02")
+	if *force {
+		err := deleteFolder(folderName)
+		if err != nil {
+			panic(fmt.Errorf("error deleting folder %s: %w", folderName, err))
+		}
+	}
+	if folderExists(folderName) {
+		panic(fmt.Errorf("folder %s already exists", folderName))
+	}
+	copyAlgorithms(folderName)
+}
+
+func copyAlgorithms(folderName string) {
 	copyFolder("Linear", folderName+"/Linear")
 	copyFolder("Binary", folderName+"/Binary")
+	copyFolder("Bubble", folderName+"/Bubble")
 }
 
 func copyFolder(source, destination string) error {
@@ -63,4 +81,18 @@ func copyFile(source, destination string) error {
 	}
 
 	return nil
+}
+
+func folderExists(folderPath string) bool {
+	_, err := os.Stat(folderPath)
+
+	if os.IsNotExist(err) {
+		return false
+	}
+
+	return err == nil
+}
+
+func deleteFolder(folderPath string) error {
+	return os.RemoveAll(folderPath)
 }
