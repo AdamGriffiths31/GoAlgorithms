@@ -29,6 +29,8 @@ func copyAlgorithms(folderName string) {
 	copyFolder("Linear", folderName+"/Linear")
 	copyFolder("Binary", folderName+"/Binary")
 	copyFolder("Bubble", folderName+"/Bubble")
+	copyFolder("Queue", folderName+"/Queue")
+	copyFolder("Stack", folderName+"/Stack")
 }
 
 func copyFolder(source, destination string) error {

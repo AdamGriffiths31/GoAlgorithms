@@ -8,8 +8,12 @@ The GoAlgorithms program generates a folder structure with the current date (e.g
 
 The generated template files are named based on the algorithm or problem they represent. You can modify these templates to implement your own algorithm solutions and run the corresponding tests.
 
-```
+```bash
 go test .\2023-05-13/... -v
+```
+
+```bash
+go test .\2023-05-13\Binary\
 ```
 
 ## Running the Program
