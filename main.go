@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -22,15 +24,31 @@ func main() {
 	if folderExists(folderName) {
 		panic(fmt.Errorf("folder %s already exists", folderName))
 	}
+
 	copyAlgorithms(folderName)
 }
 
 func copyAlgorithms(folderName string) {
-	copyFolder("Linear", folderName+"/Linear")
-	copyFolder("Binary", folderName+"/Binary")
-	copyFolder("Bubble", folderName+"/Bubble")
-	copyFolder("Queue", folderName+"/Queue")
-	copyFolder("Stack", folderName+"/Stack")
+	filePath := "algorithms.json"
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		panic(err)
+	}
+
+	var jsonArray []interface{}
+
+	err = json.Unmarshal(data, &jsonArray)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, element := range jsonArray {
+		str, ok := element.(string)
+		if !ok {
+			str = fmt.Sprintf("%v", element)
+		}
+		copyFolder(str, folderName+"/"+str)
+	}
 }
 
 func copyFolder(source, destination string) error {
