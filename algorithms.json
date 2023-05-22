@@ -1,1 +1,8 @@
-["Linear","Binary","Bubble","Queue","Stack"]
+[
+    "Linear",
+    "Binary",
+    "Bubble",
+    "Queue",
+    "Stack",
+    "MazeSolver"
+]
